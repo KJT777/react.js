@@ -22,21 +22,6 @@ export const listData = {
   columns: [
     {
       key: 0,
-      title: 'Books',
-      icon: 'book',
-      cards: [
-        {
-          key: 0,
-          title: 'This Is Going to Hurt',
-        },
-        {
-          key: 1,
-          title: 'Interpreter of Maladies',
-        },
-      ],
-    },
-    {
-      key: 1,
       title: 'Movies',
       icon: 'film',
       cards: [
@@ -46,7 +31,22 @@ export const listData = {
         },
         {
           key: 1,
-          title: 'Star Wars',
+          title: 'Harry Potter and the Goblet of Fire',
+        },
+      ],
+    },
+    {
+      key: 1,
+      title: 'Books',
+      icon: 'Book',
+      cards: [
+        {
+          key: 0,
+          title: 'The identity of Bourne',
+        },
+        {
+          key: 1,
+          title: 'Jonson Burne',
         },
       ],
     },
@@ -57,11 +57,11 @@ export const listData = {
       cards: [
         {
           key: 0,
-          title: 'The Witcher',
+          title: 'The Lord of the seas',
         },
         {
           key: 1,
-          title: 'Skyrim',
+          title: 'One Late Night',
         },
       ],
     },
