@@ -23,10 +23,6 @@ const reducers = {
   searchString: searchReducer,   // wskazaliśmy magazynowi, skąd ma wziąć reducer tej właściwości stanu.
 };
 
-// add blank reducers for initial state properties without reducers
-// funkcja która łączy wszystkie reducery wymaga od nich stanu, dlatego wykorzystujemy pętlę (a konkretniej, metodę forEach) iterującą po kluczach obiektu initialState. 
-// Jeśli dla danego klucza (np. app) nie został zdefiniowany reducer cząstkowy, to tworzymy go i dodajemy do obiektu reducers. 
-// Jest to jednak absolutnie minimalna forma reducera – funkcja strzałkowa zwracająca otrzymany fragment stanu aplikacji.
 Object.keys(initialState).forEach(item => {
   if (typeof reducers[item] == 'undefined') {
     reducers[item] = (statePart = null) => statePart;

@@ -26,5 +26,4 @@ class Home extends React.Component {  // dziedziczy ona z klasy React.Component
 }
 
 // <List {...listData} /> spread operator, który pozwala na rozpakowanie obiektu lub tablicy.
-// nowością jest tylko słowo default. Dzięki niemu, importując App w pliku index.js, możemy pominąć nawiasy klamrowe, czyli nie musimy pisać import {App} from '...';, tak jak do tej pory to robiliśmy.
 export default Home;
