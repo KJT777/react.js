@@ -1,25 +1,32 @@
 import React from 'react';
+import Home from '../Home/HomeContainer';
+import Info from '../Info/Info';
+import FAQ from '../FAQ/FAQ';
+import MainLayout from '../MainLayout/MainLayout.js';   // MainLayout (zagnieżdża całą stronę w divie), nowe elementy w main layout dodajemy
+import {BrowserRouter, /*Switch*/ Route} from 'react-router-dom'; // podłączenie routingu w App
+import {AnimatedSwitch} from 'react-router-transition';  // Animowane zmiany widoku
 import styles from './App.scss';
-/*import List from '../List/List.js';*/
-/*import {pageContents, listData} from '../../data/dataStore';*/
-import PropTypes from 'prop-types';
+import List from '../List/ListContainer';
+import SearchResults from '../SearchResults/SearchResultsContainer';
 
-class App extends React.Component {
-  static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-  };
-  render() {
-    const {title, subtitle} = this.props;
-    return (
-      <main className={styles.component}>
-        <h1 className={styles.title}>{title}</h1>
-        <h2 className={styles.subtitle}>{subtitle}</h2>
-        {/*
-        <List {...listData} />
-        */}
-      </main>
-    );
-  }
-}
+
+const App = () => (
+  <BrowserRouter>
+    <MainLayout>
+      <AnimatedSwitch
+        atEnter={{ opacity: 0 }}
+        atLeave={{ opacity: 0 }}
+        atActive={{ opacity: 1 }}
+        className={styles.switchWrapper}
+      >
+        <Route exact path="/list/:id" component={List} />
+        <Route exact path="/search/:searchString" component={SearchResults} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/info' component={Info} />
+        <Route exact path='/FAQ' component={FAQ} />
+      </AnimatedSwitch>
+    </MainLayout>
+  </BrowserRouter>
+);
+
 export default App;

@@ -1,64 +1,49 @@
-import React from 'react';// import biblioteki React
+import React from 'react';
 import styles from './List.scss';
 import Hero from '../Hero/Hero.js';
-import PropTypes from 'prop-types';
-import Column from '../Column/Column.js';
+import PropTypes from 'prop-types';  // typy wartości w propsach, properties, typy danych for Java Script
+import Column from '../Column/ColumnContainer.js';
 import {settings} from '../../data/dataStore';
 import ReactHtmlParser from 'react-html-parser';
 import Creator from '../Creator/Creator.js';
+import Container from '../Container/Container.js';
 
-class List extends React.Component {
+class List extends React.Component {  // dziedziczy z klasy React.Component
+  
   static propTypes = {
-    title: PropTypes.node.isRequired,
+    title: PropTypes.node.isRequired,       // zapisujemy obiekt, w którym kluczami są nazwy właściwości komponentów, które mogą być do niego przekazywane.
+    //children: PropTypes.node.isRequired,    // .isRequired, jeśli chcemy wyświetlić błąd w konsoli, jeśli komponent nie otrzymał danej właściwości. Jeśli nie dodamy .isRequired, parametr ten będzie opcjonalny.
+    image: PropTypes.string.isRequired,     
     description: PropTypes.node,
     columns: PropTypes.array,
-    image: PropTypes.node,
+    addColumn: PropTypes.func,
   }
-
-  static defaultProps = {
+  static defaultProps = {                   // domyslna wartosc wlasciwosci. np kiedy nie zostanie podana zadna zawartosc opisu listy 
     description: settings.defaultListDescription,
   }
 
-  state = {
-    columns: this.props.columns || [],
-  }
-
-  addColumn(title){
-    this.setState(state => (
-      {
-        columns: [
-          ...state.columns,
-          {
-            key: state.columns.length ? state.columns[state.columns.length-1].key+1 : 0,
-            title,
-            icon: 'list-alt',
-            cards: [],
-          },
-        ],
-      }
-    ));
-  }
-
   render() {
-    const { description } = this.props;
+    const {title, image, description, columns, addColumn} = this.props;
     return (
-      <section className={styles.component}>
-        <Hero titleText={this.props.title} image={this.props.image}/>
-        <div className={styles.description}>{ReactHtmlParser(description)}</div>
-        <div className={styles.columns}>        
-          {/*<Column titleColumn={'Animals'} />
-          //<Column titleColumn={'Plants'} />
-          //<Column titleColumn={'Minerals'} />*/}
-          {this.state.columns.map(({key, ...columnProps}) => (
-            <Column key={key} {...columnProps} />
-          ))}
-        </div>
-        <div className={styles.creator}>
-          <Creator text={settings.columnCreatorText} action={title => this.addColumn(title)}/>
-        </div>
-      </section>
+      <Container>
+        <section className={styles.component}>
+          <Hero titleText={title} image={image} />
+          <div className={styles.description}>
+            {ReactHtmlParser(description)}
+          </div>
+          <div className={styles.columns}>              
+            {columns.map(columnData => ( // wykorzystanie wartosci ze stanu, Metoda .map, którą tutaj wykorzystujemy, jest dostępna dla każdej tablicy (array). Służy ona do modyfikacji każdego jej elementu – ale zamiast zmieniać tablicę, na której została wykonana, zwraca nową tablicę ze zmienionymi wartościami.
+              <Column key={columnData.id} {...columnData} />
+            ))}
+          </div>
+        
+          <div className={styles.creator}>
+            <Creator text={settings.columnCreatorText} action={addColumn}/>
+          </div>
+        </section>
+      </Container>
     );
   }
 }
 
-export default List;// export klasy List
+export default List;

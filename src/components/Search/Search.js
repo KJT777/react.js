@@ -33,6 +33,8 @@ class Search extends React.Component {
   }
 
   handleOK() {
+    //this.props.changeSearchString(this.state.value); możesz usunąć this.props.changeSearchString(this.state.value);, 
+    // ponieważ kliknięcie OK po wyszukaniu ma już tylko zmieniać adres strony – zmianą stanu zajmie się komponent SearchResults.
     this.props.history.push(`/search/${this.state.value}`);
   }
 
